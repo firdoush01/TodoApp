@@ -16,17 +16,17 @@ const handleEdit = (id)=>{
     axios
       .put("http://localhost:3001/update/"+id)
       .then((result) => {
-        location.reload
+        location.reload()
       })
       .catch((err) => console.log(err));
 }
 
 
-const handleDelete = () => {
+const handleDelete = (id) => {
     axios
-      .put("http://localhost:3001/delete/"+id)
+      .delete("http://localhost:3001/delete/"+id)
       .then((result) => {
-        location.reload
+        location.reload()
       })
       .catch((err) => console.log(err));
 }
