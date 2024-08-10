@@ -54,6 +54,9 @@ function Home() {
               <span className={`priority ${todo.priority.toLowerCase()}`}>
                 {todo.priority}
               </span>
+              <span className="category">
+                {todo.category} {/* Display the category */}
+              </span>
               <span>
                 <BsFillTrashFill
                   className="icon"

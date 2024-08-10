@@ -67,3 +67,9 @@
 .priority.low {
   color: green;
 }
+.category {
+  margin-left: 10px;
+  font-style: italic;
+  color: #555;
+}
+

@@ -19,12 +19,13 @@ app.get('/get', (req,res)=>{
 
 app.put('/update/:id', (req, res) => {
     const { id } = req.params;
-    const { done, priority } = req.body; // **Destructure done and priority from req.body**
+    const { done, priority, category } = req.body; // Destructure category from req.body
     TodoModel.findByIdAndUpdate(
         { _id: id }, 
         { 
             done: done, 
-            priority: priority // **Include priority in the update**
+            priority: priority,
+            category: category // Include category in the update
         }
     )
     .then(result => res.json(result))
@@ -40,14 +41,16 @@ app.delete('/delete/:id', (req,res) => {
 })
 
 app.post('/add', (req, res) => {
-    const { task, priority } = req.body; // **Destructure priority from req.body**
+    const { task, priority, category } = req.body; // **Destructure category from req.body**
     TodoModel.create({
         task: task,
-        priority: priority // **Include priority when creating a new task**
+        priority: priority,
+        category: category // Include category when creating a new task
     })
     .then(result => res.json(result))
     .catch(err => res.json(err))
 })
+
 
 
 app.listen(3001, () => {

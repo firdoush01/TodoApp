@@ -6,11 +6,16 @@ const todoSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    // **Added priority field**
     priority: {
         type: String,
-        enum: ['High', 'Medium', 'Low'], // Set possible values
-        default: 'Medium' // Set default value
+        enum: ['High', 'Medium', 'Low'],
+        default: 'Medium'
+    },
+    // Added category field
+    category: {
+        type: String,
+        enum: ['Academics', 'Workout', 'Shopping', 'Work', 'Health', 'Hobbies', 'Household', 'Finance', 'Social', 'Personal Development', 'Other'], // List of categories
+        default: 'Other' // Default category
     }
 })
 
