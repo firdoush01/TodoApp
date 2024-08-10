@@ -45,6 +45,18 @@ app.delete('/delete/:id', (req, res) => {
     .catch(err => res.json(err));
 });
 
+app.post('/add', (req, res) => {
+    const { task, priority, category, date, note } = req.body;
+    TodoModel.create({
+        task: task,
+        priority: priority,
+        category: category,
+        date: date,
+        note: note
+    }).then(result => res.json(result))
+    .catch(err => res.json(err));
+});
+
 // Cron job to run every hour and check for tasks due in the next 12 hours
 cron.schedule('0 * * * *', () => {
     const now = new Date();

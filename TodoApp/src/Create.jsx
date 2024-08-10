@@ -4,15 +4,17 @@ import axios from "axios";
 function Create() {
   const [task, setTask] = useState("");
   const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
   const [note, setNote] = useState("");
   const [priority, setPriority] = useState("Medium");
   const [category, setCategory] = useState("Academics");
 
   const handleAdd = () => {
+    const dateTime = `${date}T${time}`;
     axios
       .post("http://localhost:3001/add", {
         task: task,
-        date: date,
+        date: dateTime,
         note: note,
         priority: priority,
         category: category,
@@ -34,6 +36,11 @@ function Create() {
         type="date"
         placeholder="Enter Date"
         onChange={(e) => setDate(e.target.value)}
+      />
+      <input
+        type="time"
+        placeholder="Enter Time"
+        onChange={(e) => setTime(e.target.value)}
       />
       <textarea
         placeholder="Enter Note"

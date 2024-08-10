@@ -56,7 +56,7 @@ function Home() {
                 <strong>Category:</strong> {todo.category}
               </small>
               <small>
-                <strong>Due Date:</strong> {new Date(todo.date).toLocaleDateString()}
+                <strong>Due Date:</strong> {new Date(todo.date).toLocaleDateString()} {new Date(todo.date).toLocaleTimeString()}
               </small>
               <small>
                 <strong>Note:</strong> {todo.note}
