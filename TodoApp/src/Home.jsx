@@ -32,43 +32,40 @@ function Home() {
   };
 
   return (
-    <div className="home">
-      <h2>Todo List</h2>
+    <div className="container mx-auto p-6">
+      <h2 className="text-3xl font-bold mb-4">Todo List</h2>
       <Create />
       {todos.length === 0 ? (
-        <div>
-          <h2>No Record</h2>
+        <div className="text-center mt-6">
+          <h2 className="text-xl font-medium">No Record</h2>
         </div>
       ) : (
         todos.map((todo) => (
-          <div className="task" key={todo._id}>
-            <div className="checkbox" onClick={() => handleEdit(todo._id)}>
-              {todo.done ? (
-                <BsFillCheckCircleFill className="icon"></BsFillCheckCircleFill>
-              ) : (
-                <BsCircleFill className="icon" />
-              )}
-              <p className={todo.done ? "line_through" : ""}>{todo.task}</p>
-              <small>
-                <strong>Priority:</strong> {todo.priority}
-              </small>
-              <small>
-                <strong>Category:</strong> {todo.category}
-              </small>
-              <small>
-                <strong>Due Date:</strong> {new Date(todo.date).toLocaleDateString()} {new Date(todo.date).toLocaleTimeString()}
-              </small>
-              <small>
-                <strong>Note:</strong> {todo.note}
-              </small>
+          <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex items-center justify-between" key={todo._id}>
+            <div className="flex items-center">
+              <div 
+                className={`w-6 h-6 flex items-center justify-center rounded-full cursor-pointer ${todo.done ? 'text-green-500' : 'text-gray-500'}`}
+                onClick={() => handleEdit(todo._id)}
+              >
+                {todo.done ? (
+                  <BsFillCheckCircleFill className="text-2xl" />
+                ) : (
+                  <BsCircleFill className="text-2xl" />
+                )}
+              </div>
+              <p className={`ml-3 text-lg ${todo.done ? 'line-through text-gray-500' : ''}`}>{todo.task}</p>
             </div>
-            <div>
-              <span>
-                <BsFillTrashFill
-                  className="icon"
-                  onClick={() => handleDelete(todo._id)}
-                />
-              </span>
+            <div className="flex flex-col ml-4">
+              <small className="text-sm text-gray-600"><strong>Priority:</strong> {todo.priority}</small>
+              <small className="text-sm text-gray-600"><strong>Category:</strong> {todo.category}</small>
+              <small className="text-sm text-gray-600"><strong>Due Date:</strong> {new Date(todo.date).toLocaleDateString()} {new Date(todo.date).toLocaleTimeString()}</small>
+              <small className="text-sm text-gray-600"><strong>Note:</strong> {todo.note}</small>
+            </div>
+            <div className="ml-4">
+              <BsFillTrashFill
+                className="text-red-500 cursor-pointer hover:text-red-700 transition-colors"
+                onClick={() => handleDelete(todo._id)}
+              />
             </div>
           </div>
         ))
