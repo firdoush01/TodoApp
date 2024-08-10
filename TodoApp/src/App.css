@@ -72,4 +72,14 @@
   font-style: italic;
   color: #555;
 }
+.date {
+  margin-left: 10px;
+  color: #888;
+}
+
+.note {
+  margin-left: 10px;
+  font-style: italic;
+  color: #555;
+}
 

@@ -11,11 +11,20 @@ const todoSchema = new mongoose.Schema({
         enum: ['High', 'Medium', 'Low'],
         default: 'Medium'
     },
-    // Added category field
     category: {
         type: String,
-        enum: ['Academics', 'Workout', 'Shopping', 'Work', 'Health', 'Hobbies', 'Household', 'Finance', 'Social', 'Personal Development', 'Other'], // List of categories
-        default: 'Other' // Default category
+        enum: ['Academics', 'Workout', 'Shopping', 'Work', 'Health', 'Hobbies', 'Household', 'Finance', 'Social', 'Personal Development', 'Other'],
+        default: 'Other'
+    },
+    // **Added date field**
+    date: {
+        type: Date,
+        required: true
+    },
+    // **Added note field**
+    note: {
+        type: String,
+        default: ''
     }
 })
 

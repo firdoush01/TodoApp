@@ -44,19 +44,25 @@ function Home() {
           <div className="task" key={todo._id}>
             <div className="checkbox" onClick={() => handleEdit(todo._id)}>
               {todo.done ? (
-                <BsFillCheckCircleFill className="icon" />
+                <BsFillCheckCircleFill className="icon"></BsFillCheckCircleFill>
               ) : (
                 <BsCircleFill className="icon" />
               )}
               <p className={todo.done ? "line_through" : ""}>{todo.task}</p>
+              <small>
+                <strong>Priority:</strong> {todo.priority}
+              </small>
+              <small>
+                <strong>Category:</strong> {todo.category}
+              </small>
+              <small>
+                <strong>Due Date:</strong> {new Date(todo.date).toLocaleDateString()}
+              </small>
+              <small>
+                <strong>Note:</strong> {todo.note}
+              </small>
             </div>
             <div>
-              <span className={`priority ${todo.priority.toLowerCase()}`}>
-                {todo.priority}
-              </span>
-              <span className="category">
-                {todo.category} {/* Display the category */}
-              </span>
               <span>
                 <BsFillTrashFill
                   className="icon"

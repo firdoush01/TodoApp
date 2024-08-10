@@ -1,59 +1,66 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const cors = require('cors')
-const TodoModel = require('./Models/Todo')
+// Required imports
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const cron = require('node-cron');
 
-const app = express()
-app.use(cors())
-app.use(express.json())
+// Import your TodoModel
+const TodoModel = require('./Models/Todo');
+
+const app = express();
+app.use(cors());
+app.use(express.json());
 
 mongoose.connect('mongodb+srv://firdoush_ali:8676mongo@cluster0.e4kc6xb.mongodb.net')
 console.log("Db connected Successfully");
 
-
-app.get('/get', (req,res)=>{
+// Existing API routes (get, post, put, delete)
+app.get('/get', (req, res) => {
     TodoModel.find()
     .then(result => res.json(result))
-    .catch(err => res.json(err))
-})
+    .catch(err => res.json(err));
+});
 
 app.put('/update/:id', (req, res) => {
     const { id } = req.params;
-    const { done, priority, category } = req.body; // Destructure category from req.body
+    const { done, priority, category, date, note } = req.body;
     TodoModel.findByIdAndUpdate(
-        { _id: id }, 
+        { _id: id },
         { 
             done: done, 
             priority: priority,
-            category: category // Include category in the update
+            category: category,
+            date: date,
+            note: note 
         }
     )
     .then(result => res.json(result))
-    .catch(err => res.json(err))
-})
+    .catch(err => res.json(err));
+});
 
-
-app.delete('/delete/:id', (req,res) => {
-    const {id} = req.params;
-    TodoModel.findByIdAndDelete({_id:id })
+app.delete('/delete/:id', (req, res) => {
+    const { id } = req.params;
+    TodoModel.findByIdAndDelete({ _id: id })
     .then(result => res.json(result))
-    .catch(err => res.json(err))
-})
+    .catch(err => res.json(err));
+});
 
-app.post('/add', (req, res) => {
-    const { task, priority, category } = req.body; // **Destructure category from req.body**
-    TodoModel.create({
-        task: task,
-        priority: priority,
-        category: category // Include category when creating a new task
+// Cron job to run every hour and check for tasks due in the next 12 hours
+cron.schedule('0 * * * *', () => {
+    const now = new Date();
+    const twelveHoursLater = new Date(now.getTime() + 12 * 60 * 60 * 1000);
+
+    TodoModel.find({ date: { $lte: twelveHoursLater, $gte: now }, done: false })
+    .then(tasks => {
+        tasks.forEach(task => {
+            console.log(`Reminder: The task "${task.task}" is due soon! Note: ${task.note}`);
+            // You can trigger in-app notifications or any other action here
+        });
     })
-    .then(result => res.json(result))
-    .catch(err => res.json(err))
-})
+    .catch(err => console.log(err));
+});
 
-
-
+// Start your server
 app.listen(3001, () => {
-    console.log("Server is running");
-    
-})
+    console.log('Server is running on port 3001');
+});
