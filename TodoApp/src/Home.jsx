@@ -5,6 +5,7 @@ import { BsCircleFill, BsFillCheckCircleFill, BsFillTrashFill } from "react-icon
 
 function Home() {
   const [todos, setTodos] = useState([]);
+
   useEffect(() => {
     axios
       .get("http://localhost:3001/get")
@@ -12,24 +13,23 @@ function Home() {
       .catch((err) => console.log(err));
   }, []);
 
-const handleEdit = (id)=>{
+  const handleEdit = (id) => {
     axios
-      .put("http://localhost:3001/update/"+id)
+      .put("http://localhost:3001/update/" + id)
       .then((result) => {
-        location.reload()
+        location.reload();
       })
       .catch((err) => console.log(err));
-}
+  };
 
-
-const handleDelete = (id) => {
+  const handleDelete = (id) => {
     axios
-      .delete("http://localhost:3001/delete/"+id)
+      .delete("http://localhost:3001/delete/" + id)
       .then((result) => {
-        location.reload()
+        location.reload();
       })
       .catch((err) => console.log(err));
-}
+  };
 
   return (
     <div className="home">
@@ -41,17 +41,24 @@ const handleDelete = (id) => {
         </div>
       ) : (
         todos.map((todo) => (
-          <div className="task">
+          <div className="task" key={todo._id}>
             <div className="checkbox" onClick={() => handleEdit(todo._id)}>
-                {todo.done ? 
-                  <BsFillCheckCircleFill className="icon"></BsFillCheckCircleFill> : 
-              <BsCircleFill className="icon" />
-                }
+              {todo.done ? (
+                <BsFillCheckCircleFill className="icon" />
+              ) : (
+                <BsCircleFill className="icon" />
+              )}
               <p className={todo.done ? "line_through" : ""}>{todo.task}</p>
             </div>
             <div>
+              <span className={`priority ${todo.priority.toLowerCase()}`}>
+                {todo.priority}
+              </span>
               <span>
-                <BsFillTrashFill className="icon" onClick={() => handleDelete(todo._id)}/>
+                <BsFillTrashFill
+                  className="icon"
+                  onClick={() => handleDelete(todo._id)}
+                />
               </span>
             </div>
           </div>

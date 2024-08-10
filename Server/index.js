@@ -17,14 +17,20 @@ app.get('/get', (req,res)=>{
     .catch(err => res.json(err))
 })
 
-app.put('/update/:id', (req,res) => {
-    const {id} = req.params;
-    console.log(id);
-    TodoModel.findByIdAndUpdate({_id: id}, {done: true})
+app.put('/update/:id', (req, res) => {
+    const { id } = req.params;
+    const { done, priority } = req.body; // **Destructure done and priority from req.body**
+    TodoModel.findByIdAndUpdate(
+        { _id: id }, 
+        { 
+            done: done, 
+            priority: priority // **Include priority in the update**
+        }
+    )
     .then(result => res.json(result))
     .catch(err => res.json(err))
-    
 })
+
 
 app.delete('/delete/:id', (req,res) => {
     const {id} = req.params;
@@ -33,13 +39,16 @@ app.delete('/delete/:id', (req,res) => {
     .catch(err => res.json(err))
 })
 
-app.post('/add', (req,res) => {
-    const task = req.body.task;
+app.post('/add', (req, res) => {
+    const { task, priority } = req.body; // **Destructure priority from req.body**
     TodoModel.create({
-        task:task
-    }).then(result => res.json(result))
+        task: task,
+        priority: priority // **Include priority when creating a new task**
+    })
+    .then(result => res.json(result))
     .catch(err => res.json(err))
 })
+
 
 app.listen(3001, () => {
     console.log("Server is running");

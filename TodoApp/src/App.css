@@ -50,3 +50,20 @@
 .line_through {
   text-decoration: line-through;
 }
+
+.priority {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.priority.high {
+  color: red;
+}
+
+.priority.medium {
+  color: orange;
+}
+
+.priority.low {
+  color: green;
+}
