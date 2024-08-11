@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://mdfirdoushali1776:wRpJ9OmlwU587pJ1@cluster0.k0w25.mongodb.net/')
+mongoose.connect(MONGODB_URL)
 console.log("Db connected Successfully");
 
 // Existing API routes (get, post, put, delete)
