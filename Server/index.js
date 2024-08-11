@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const cron = require('node-cron');
+require('dotenv').config();
 
 // Import your TodoModel
 const TodoModel = require('./Models/Todo');
@@ -11,6 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const MONGODB_URL = process.env.MONGODB_URL;
 mongoose.connect(MONGODB_URL)
 console.log("Db connected Successfully");
 
