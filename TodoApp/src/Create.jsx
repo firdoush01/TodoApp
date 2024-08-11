@@ -12,7 +12,7 @@ function Create() {
   const handleAdd = () => {
     const dateTime = `${date}T${time}`;
     axios
-      .post("http://localhost:3001/add", {
+      .post("https://todoapp-2-m2b5.onrender.com/add", {
         task: task,
         date: dateTime,
         note: note,
