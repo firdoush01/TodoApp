@@ -73,6 +73,7 @@ cron.schedule('0 * * * *', () => {
 });
 
 // Start your server
-app.listen(3001, () => {
-    console.log('Server is running on port 3001');
+const port = process.env.PORT || 4000
+app.listen(port, () => {
+    console.log('Server is running on port 3000');
 });
